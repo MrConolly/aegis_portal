@@ -1,7 +1,7 @@
 {
   "name": "aegis-portal",
   "version": "1.0.0",
-  "type": "module",
+
   "scripts": {
     "build": "tsc && vite build",
     "start": "node dist/index.js",

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - AEGIS Professional Care</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: white;
+            min-height: 100vh;
+        }
+        .header { 
+            background: #2d2d2d; 
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #444;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { 
+            color: #b8860b; 
+            font-size: 1.5rem;
+        }
+        .logout { 
+            background: #666; 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 4px; 
+            cursor: pointer;
+        }
+        .logout:hover { background: #777; }
+        .content { 
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 2rem; 
+            margin-top: 2rem;
+        }
+        .card { 
+            background: #2d2d2d; 
+            padding: 1.5rem; 
+            border-radius: 8px; 
+            border: 1px solid #444;
+        }
+        .card h3 { 
+            color: #b8860b; 
+            margin-bottom: 1rem;
+        }
+        .stat { 
+            font-size: 2rem; 
+            font-weight: bold; 
+            color: #51cf66;
+        }
+        .description { 
+            color: #ccc; 
+            font-size: 0.9rem;
+        }
+        .nav-tabs { 
+            display: flex; 
+            gap: 1rem; 
+            margin-bottom: 2rem;
+        }
+        .nav-tab { 
+            background: transparent; 
+            color: #ccc; 
+            border: 1px solid #444; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 4px; 
+            cursor: pointer;
+        }
+        .nav-tab.active { 
+            background: #b8860b; 
+            color: white; 
+            border-color: #b8860b;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AEGIS Admin Portal</h1>
+        <button class="logout" onclick="logout()">Logout</button>
+    </div>
+    
+    <div class="content">
+        <h2>Welcome, Administrator</h2>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('dashboard')">Dashboard</button>
+            <button class="nav-tab" onclick="showTab('patients')">Patients</button>
+            <button class="nav-tab" onclick="showTab('employees')">Employees</button>
+            <button class="nav-tab" onclick="showTab('crm')">CRM Leads</button>
+        </div>
+        
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Total Patients</h3>
+                    <div class="stat">24</div>
+                    <div class="description">Active patient records</div>
+                </div>
+                <div class="card">
+                    <h3>Active Employees</h3>
+                    <div class="stat">12</div>
+                    <div class="description">Healthcare staff members</div>
+                </div>
+                <div class="card">
+                    <h3>CRM Leads</h3>
+                    <div class="stat">8</div>
+                    <div class="description">Potential new clients</div>
+                </div>
+                <div class="card">
+                    <h3>Family Members</h3>
+                    <div class="stat">31</div>
+                    <div class="description">Registered family contacts</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="patients" class="tab-content">
+            <div class="card">
+                <h3>Patient Management</h3>
+                <p class="description">Complete patient management system with medical records, care plans, and family coordination.</p>
+                <br>
+                <p>Features:</p>
+                <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                    <li>Patient profiles with medical history</li>
+                    <li>Care plan management</li>
+                    <li>Family member access control</li>
+                    <li>Document and photo uploads</li>
+                    <li>Real-time status updates</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="employees" class="tab-content">
+            <div class="card">
+                <h3>Employee Management</h3>
+                <p class="description">Comprehensive staff management with scheduling, payroll, and performance tracking.</p>
+                <br>
+                <p>Features:</p>
+                <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                    <li>Employee profiles and credentials</li>
+                    <li>Schedule management</li>
+                    <li>Payroll processing</li>
+                    <li>Patient assignments</li>
+                    <li>Performance monitoring</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="crm" class="tab-content">
+            <div class="card">
+                <h3>CRM Lead Management</h3>
+                <p class="description">8-stage lead conversion pipeline from initial contact to patient conversion.</p>
+                <br>
+                <p>Pipeline Stages:</p>
+                <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                    <li>Initial Contact</li>
+                    <li>Needs Assessment</li>
+                    <li>Service Proposal</li>
+                    <li>Negotiation</li>
+                    <li>Contract Review</li>
+                    <li>Agreement Signed</li>
+                    <li>Onboarding</li>
+                    <li>Converted</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function logout() {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
